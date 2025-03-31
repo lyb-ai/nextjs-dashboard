@@ -2,13 +2,19 @@
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { useSearchParams, usePathname, useRouter } from 'next/navigation';
-
+import { useDebouncedCallback } from 'use-debounce'
 export default function Search({ placeholder }: { placeholder: string }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
 
-  const handleSearch = (term: string) => {
+  // How Debouncing Works:
+
+  // Trigger Event: When an event that should be debounced (like a keystroke in the search box) occurs, a timer starts.
+  // Wait: If a new event occurs before the timer expires, the timer is reset.
+  // Execution: If the timer reaches the end of its countdown, the debounced function is executed.
+
+  const handleSearch = useDebouncedCallback((term: string) => {
     const params = new URLSearchParams(searchParams);
 
     if (term) {
@@ -17,7 +23,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
       params.delete('query');
     }
     replace(`${pathname}?${params.toString()}`);
-  }
+  }, 300)
 
   //defaultValue vs. value / Controlled vs. Uncontrolled
 
