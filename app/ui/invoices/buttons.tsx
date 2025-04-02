@@ -28,11 +28,14 @@ export function UpdateInvoice({ id }: { id: string }) {
 export function DeleteInvoice({ id }: { id: string }) {
   const deleteInvoiceWithId = deleteInvoice.bind(null, id);
   return (
-    <>
-      <button type="submit" className="rounded-md border p-2 hover:bg-gray-100" onClick={deleteInvoiceWithId}>
+    <form action={deleteInvoiceWithId}>
+      {/* 这里，把函数加到按钮的点击事件上，而不用form的action会导致无法触发error捕捉事件 */}
+      {/* form action 调用server action， 是服务端操作 */}
+      {/* button onClick 是客户端操作 */}
+      <button type="submit" className="rounded-md border p-2 hover:bg-gray-100">
         <span className="sr-only">Delete</span>
         <TrashIcon className="w-5" />
       </button>
-    </>
+    </form>
   );
 }
