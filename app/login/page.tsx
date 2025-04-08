@@ -1,6 +1,15 @@
 import AcmeLogo from '@/app/ui/acme-logo';
 import LoginForm from '@/app/ui/login-form';
 import { Suspense } from 'react';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Login',
+  // metadataBase: new URL('http://localhost:3000'),
+  // openGraph: {
+  //   images: '/favicon.ico', // 相对路径
+  // }
+};
 
 export default function LoginPage() {
   return (
